@@ -41,7 +41,7 @@ if (EMSCRIPTEN)
 
    if(UNIX)
        #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse")
-       SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1z -O3 --llvm-lto 1 --bind -s ASSERTIONS=2 --memory-init-file 0 -s ALLOW_MEMORY_GROWTH=1") # -Oz --profiling
+       SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1z -O3 --llvm-lto 1 --bind -s ASSERTIONS=2 --memory-init-file 0 -s ALLOW_MEMORY_GROWTH=1 -v") # -Oz --profiling
        SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s NO_FILESYSTEM=1 -s NO_EXIT_RUNTIME=1") # reduce file size
    
        if(!BUILD_WASM)

@@ -1,36 +1,22 @@
 #include <opencv2/imgproc.hpp>
-#include "color_cycle.h"
+#include <opencv2/highgui.hpp>
 
-cv::Mat3b hsv;
-int accHOffset = 0;
+#include "color_cycle.h"
+#include <iostream>
+
+using namespace cv;
 
 namespace color_cycle
 {
-   void rotate_hue(cv::Mat3b const& img, cv::Mat3b& result_img, int hsteps)
+   void rotate_hue()
    {
-      assert(result_img.size() == img.size() && result_img.type() == img.type());
+      Mat img = imread("lol16.jpg");  
+      Rect r(250, 250, 120, 200);
+      rectangle(img, r, Scalar(0, 255, 255), 3);
 
-      // re-allocate global temp storage if needed
-      hsv.create(img.size());
+      imshow("画矩形", img);
 
-      // convert to HSV
-      cv::cvtColor(img, hsv, CV_BGR2HSV_FULL);
-
-      for (int r = 0; r < hsv.rows; ++r)
-         for (int c = 0; c < hsv.cols; ++c)
-            hsv.at<cv::Vec3b>(r, c)[0] = (hsv.at<cv::Vec3b>(r, c)[0] + accHOffset) % 255; // cycle H
-
-      // convert back to BGR
-      cv::cvtColor(hsv, result_img, CV_HSV2BGR_FULL);
-
-      // update cycle offset
-      accHOffset += hsteps;
+      waitKey();
    }
 
-   void clear_all()
-   {
-      // release global memory
-      hsv.release();
-      accHOffset = 0;
-   }
 }
